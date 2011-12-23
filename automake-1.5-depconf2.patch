@@ -1,0 +1,20 @@
+--- automake-1.5/tests/Makefile.in.depc2	2007-01-30 11:15:19.000000000 -0500
++++ automake-1.5/tests/Makefile.in	2007-01-30 11:15:28.000000000 -0500
+@@ -174,7 +174,6 @@
+ depacl.test \
+ depacl2.test \
+ depcomp.test \
+-depcomp2.test \
+ depdist.test \
+ depend.test \
+ depend2.test \
+--- automake-1.5/tests/Makefile.am.depc2	2007-01-30 11:14:58.000000000 -0500
++++ automake-1.5/tests/Makefile.am	2007-01-30 11:15:09.000000000 -0500
+@@ -105,7 +105,6 @@
+ depacl.test \
+ depacl2.test \
+ depcomp.test \
+-depcomp2.test \
+ depdist.test \
+ depend.test \
+ depend2.test \

@@ -1,0 +1,75 @@
+--- automake-1.5/lib/Automake/Makefile.in.noautotools	2007-04-16 13:49:31.000000000 +0200
++++ automake-1.5/lib/Automake/Makefile.in	2007-04-16 13:52:40.000000000 +0200
+@@ -56,6 +56,7 @@
+ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ AMTAR = @AMTAR@
++APIVERSION = @APIVERSION@
+ AWK = @AWK@
+ DEPDIR = @DEPDIR@
+ EXEEXT = @EXEEXT@
+--- automake-1.5/lib/Makefile.in.noautotools	2007-04-16 13:52:54.000000000 +0200
++++ automake-1.5/lib/Makefile.in	2007-04-16 13:53:10.000000000 +0200
+@@ -56,6 +56,7 @@
+ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ AMTAR = @AMTAR@
++APIVERSION = @APIVERSION@
+ AWK = @AWK@
+ DEPDIR = @DEPDIR@
+ EXEEXT = @EXEEXT@
+--- automake-1.5/lib/am/Makefile.in.noautotools	2007-04-16 13:53:23.000000000 +0200
++++ automake-1.5/lib/am/Makefile.in	2007-04-16 13:53:42.000000000 +0200
+@@ -56,6 +56,7 @@
+ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ AMTAR = @AMTAR@
++APIVERSION = @APIVERSION@
+ AWK = @AWK@
+ DEPDIR = @DEPDIR@
+ EXEEXT = @EXEEXT@
+--- automake-1.5/Makefile.in.noautotools	2007-04-16 13:48:43.000000000 +0200
++++ automake-1.5/Makefile.in	2007-04-16 13:49:13.000000000 +0200
+@@ -56,6 +56,7 @@
+ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ AMTAR = @AMTAR@
++APIVERSION = @APIVERSION@
+ AWK = @AWK@
+ DEPDIR = @DEPDIR@
+ EXEEXT = @EXEEXT@
+--- automake-1.5/configure.noautotools	2007-04-16 13:53:53.000000000 +0200
++++ automake-1.5/configure	2007-04-16 13:56:30.000000000 +0200
+@@ -793,7 +793,7 @@
+ fi
+ 
+ # Define the identity of the package.
+-PACKAGE=automake
++PACKAGE=automake15
+ VERSION=1.5
+ cat >> confdefs.h <<EOF
+ #define PACKAGE "$PACKAGE"
+@@ -842,6 +842,15 @@
+ # We need awk for the "check" target.  The system "awk" is bad on
+ # some platforms.
+ 
++# The API version is the base version.  We must guarantee
++# compatibility for all releases with the same API version.
++# Our current rule is that:
++# * All releases, including the prereleases, in an X.Y series
++#   are compatible.  So 1.5.1c is compatible with 1.5.
++# * Prereleases on the trunk are all incompatible -- 1.5b and 1.5c
++#   aren't the same.
++APIVERSION=`echo "$VERSION" | sed -e 's/^\([[0-9]]*\.[[0-9]]*[[a-z]]?\).*$/\1/'`
++
+ 
+ ACLOCAL="`pwd`/aclocal --acdir=m4"
+ # $AUTOMAKE is always run after a `cd $top_srcdir', hence `.' is really
+@@ -1064,6 +1073,7 @@
+ s%@AMDEPBACKSLASH@%$AMDEPBACKSLASH%g
+ s%@DEPDIR@%$DEPDIR%g
+ s%@PERL@%$PERL%g
++s%@APIVERSION@%$APIVERSION%g
+ 
+ CEOF
+ EOF
